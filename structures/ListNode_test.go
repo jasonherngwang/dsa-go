@@ -1,7 +1,6 @@
 package structures
 
 import (
-	// "fmt"
 	"testing"
 )
 
@@ -117,6 +116,21 @@ func TestDeleteAllMatches(t *testing.T) {
 
 		actual := list.GetLength()
 		expected := 0
+
+		if actual != expected {
+			t.Errorf("Expected: %d, received %d", expected, actual)
+		}
+	})
+}
+
+func TestDeleteNodeAtIndex(t *testing.T) {
+	t.Run("Deletes node at valid index", func(t *testing.T) {
+		list := CreateLinkedList()
+
+		list.DeleteNodeAtindex(1)
+
+		actual := list.Head.Next.Val
+		expected := 3
 
 		if actual != expected {
 			t.Errorf("Expected: %d, received %d", expected, actual)

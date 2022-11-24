@@ -11,9 +11,21 @@ type LinkedList struct {
 	Head *ListNode
 }
 
-// Print data of all nodes, space-separated
+// Utilities
+
+// Print data of all nodes, space-separated (given LinkedList)
 func (l LinkedList) PrintListData() {
 	curr := l.Head
+	for curr != nil {
+		fmt.Printf("%d ", curr.Val)
+		curr = curr.Next
+	}
+	fmt.Printf("\n")
+}
+
+// Print data of all nodes, space-separated (given ListNode)
+func (head *ListNode) PrintData() {
+	curr := head
 	for curr != nil {
 		fmt.Printf("%d ", curr.Val)
 		curr = curr.Next
@@ -33,6 +45,19 @@ func (l LinkedList) GetLength() int {
 
 	return length
 }
+
+// Create sample list, for use in testing
+func CreateLinkedList() LinkedList {
+	list := LinkedList{}
+	for n := 1; n <= 5; n++ {
+		node := &ListNode{Val: n}
+		list.AppendNode(node)
+	}
+
+	return list
+}
+
+// Addition
 
 // Prepend node to list O(1)
 func (l *LinkedList) PrependNode(newHead *ListNode) {
@@ -57,6 +82,8 @@ func (l *LinkedList) AppendNode(n *ListNode) {
 	}
 	last.Next = n
 }
+
+// Insertion
 
 // Insert value (as node) at specified index O(N)
 func (l *LinkedList) InsertValueAtIndex(value int, index int) {
@@ -93,6 +120,8 @@ func (l *LinkedList) InsertValueAtIndex(value int, index int) {
 	curr.Next = newNode
 }
 
+// Retrieval
+
 // Return pointer to node at specified index O(N)
 func (l LinkedList) GetNodeAtIndex(index int) (*ListNode, bool) {
 	curr := l.Head
@@ -110,6 +139,8 @@ func (l LinkedList) GetNodeAtIndex(index int) (*ListNode, bool) {
 
 	return curr, false
 }
+
+// Search
 
 // Return pointer to first node having specified value O(N)
 func (l LinkedList) GetNodeWithValue(value int) (*ListNode, bool) {
@@ -177,13 +208,27 @@ func (l *LinkedList) DeleteAllMatches(value int) {
 	}
 }
 
-// Create sample list, for use in testing
-func CreateLinkedList() LinkedList {
-	list := LinkedList{}
-	for n := 1; n <= 5; n++ {
-		node := &ListNode{Val: n}
-		list.AppendNode(node)
+// Deletion
+
+// Delete node at specified index
+func (l *LinkedList) DeleteNodeAtindex(index int) {
+	if index == 0 {
+		l.Head = l.Head.Next
+		return
 	}
 
-	return list
+	curr := l.Head
+	currIndex := 0
+
+	for currIndex < index-1 {
+		curr = curr.Next
+		currIndex++
+
+		// Provided index is out-of-bounds
+		if curr.Next == nil {
+			return
+		}
+	}
+
+	curr.Next = curr.Next.Next
 }
