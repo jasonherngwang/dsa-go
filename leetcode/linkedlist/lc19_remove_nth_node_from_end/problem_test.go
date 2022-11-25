@@ -15,9 +15,9 @@ func Test_removeNthFromEnd(t *testing.T) {
 	}
 
 	type testCase struct {
-		name string
-		args input
-		want *ListNode
+		name     string
+		args     input
+		expected *ListNode
 	}
 
 	tests := []testCase{
@@ -35,7 +35,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 				},
 				n: 2,
 			},
-			want: &ListNode{
+			expected: &ListNode{
 				Val: 1,
 				Next: &ListNode{
 					Val: 3,
@@ -56,7 +56,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 				},
 				n: 3,
 			},
-			want: &ListNode{
+			expected: &ListNode{
 				Val: 2,
 				Next: &ListNode{
 					Val: 3,
@@ -64,7 +64,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 			},
 		},
 		{
-			name: "Remove middle node",
+			name: "Remove last node",
 			args: input{
 				head: &ListNode{
 					Val: 1,
@@ -77,7 +77,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 				},
 				n: 1,
 			},
-			want: &ListNode{
+			expected: &ListNode{
 				Val: 1,
 				Next: &ListNode{
 					Val: 2,
@@ -88,9 +88,8 @@ func Test_removeNthFromEnd(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			got := removeNthFromEnd(test.args.head, test.args.n)
-			assert.Equal(t, test.want, got)
+			actual := removeNthFromEnd(test.args.head, test.args.n)
+			assert.Equal(t, test.expected, actual)
 		})
 	}
-
 }
