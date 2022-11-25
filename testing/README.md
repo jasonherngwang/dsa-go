@@ -1,6 +1,6 @@
 # Testing Format for Go
 
-After writing a solution to a program, write tests by:
+After writing a solution to a problem, write tests by:
 - Importing any required data structures
 - Defining an `input` struct with the types of arguments to be passed
 - Defining a generic `testCase` struct with test name, input type, and output type
