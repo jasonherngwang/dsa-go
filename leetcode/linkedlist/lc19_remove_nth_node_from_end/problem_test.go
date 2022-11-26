@@ -1,9 +1,10 @@
 package leetcode
 
 import (
+	"testing"
+
 	"github.com/jasonherngwang/dsa-go/structures"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func Test_removeNthFromEnd(t *testing.T) {
@@ -16,14 +17,14 @@ func Test_removeNthFromEnd(t *testing.T) {
 
 	type testCase struct {
 		name     string
-		args     input
+		input    input
 		expected *ListNode
 	}
 
 	tests := []testCase{
 		{
 			name: "Remove middle node",
-			args: input{
+			input: input{
 				head: &ListNode{
 					Val: 1,
 					Next: &ListNode{
@@ -44,7 +45,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 		},
 		{
 			name: "Remove first node",
-			args: input{
+			input: input{
 				head: &ListNode{
 					Val: 1,
 					Next: &ListNode{
@@ -65,7 +66,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 		},
 		{
 			name: "Remove last node",
-			args: input{
+			input: input{
 				head: &ListNode{
 					Val: 1,
 					Next: &ListNode{
@@ -88,7 +89,7 @@ func Test_removeNthFromEnd(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			actual := removeNthFromEnd(test.args.head, test.args.n)
+			actual := removeNthFromEnd(test.input.head, test.input.n)
 			assert.Equal(t, test.expected, actual)
 		})
 	}
