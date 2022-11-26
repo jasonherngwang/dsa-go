@@ -61,44 +61,39 @@ Time: O(1) for Get and Put
 Space: O(2N) for hash table of size N and linked list of size N
 
 Doubly linked list data structures
-- Create type/struct for DLL node (prev, next, key, value).
+- Create type for DLL node (prev, next, key, value).
 
 Constructor for LRUCache
 - Initialize cache to empty hash table.
-- Initialize list length to 0.
+- Initialize capacity to provided value.
 - Initialize head and tail to empty DLL nodes, and point them at each other.
 
 Methods for LRUCache
-- Add new node (and make it MRU)
-  - Create new DLL node with key and value.
-  - Point node.next to head.next, node.prev to head.
-  - Point head.next to node.
-  - Point node.next.prev back at node.
+Remove node
+- Identify the left and right neighbors of the specified node.
+- Disconnect the node by linking its neighbors together.
 
-- Move node to front (make it MRU)
-  -
-
-- Remove node
-  -
-  - Point tail.prev to tail.prev.prev
-  - Point tail.prev.next tail
+Insert node at head of list (as MRU)
+- Identify list head and next node.
+- Attach the new node to these two node.
+- Break the links between head and next, and reconnect them to the new node.
 
 Get
-- Check if key in hash table, and return value. Else return -1.
+- Check if key in hash table. If not, return -1.
+- Make the looked-up node the MRU by removing it from the list and re-inserting it at the front.
 
 Put
+- Create a new DLL node with the provided key and value.
 - Check if key in hash table:
-  - If present:
-  	- Update its value in the hash table.
-  - If absent:
-  	- If length of linked list < capacity, the cache has room:
-	  - Add key and value to hash table.
-	  - Add a node containing this value to the tail of the linked list. Doesn't matter whether tail or head.
-	  - Increment the list's length value by 1.
-	- Else, the cache is full. Evict the LRU:
-	  - Remove the head of the linked list
-	  - Add a node containing this value to the tail of the list
-
+	- If present:
+		- Remove it, since we are going to re-insert it later at the front.
+	- If absent:
+  		- If length of linked list >= capacity (out of space), we need to evict the LRU:
+			- Look up the LRU node at the tail.
+			- Delete the LRU's k-v pair from the hash table.
+			- Remove the LRU node.
+- Add the new node to the front of the linked list.
+- Add or update the key in hash table, using the supplied value.
 */
 
 package leetcode
@@ -133,15 +128,15 @@ func Constructor(capacity int) LRUCache {
 
 // Remove node from list
 func (this *LRUCache) remove(node *DLLNode) {
-	prev, next := node.prev, node.next // Identify node's neighbors
-	prev.next, next.prev = next, prev  // Link neighbors
+	prev, next := node.prev, node.next
+	prev.next, next.prev = next, prev
 }
 
 // Insert node at head of list
 func (this *LRUCache) insert(node *DLLNode) {
-	prev, next := this.head, this.head.next // Identify head and first node
-	node.prev, node.next = prev, next       // Attach node to head and first
-	prev.next, next.prev = node, node       // Disconnect head and first; reconnect to node
+	prev, next := this.head, this.head.next
+	node.prev, node.next = prev, next
+	prev.next, next.prev = node, node
 }
 
 func (this *LRUCache) Get(key int) int {
