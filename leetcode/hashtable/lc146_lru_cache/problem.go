@@ -150,8 +150,6 @@ func (this *LRUCache) Get(key int) int {
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	newNode := &DLLNode{key: key, val: value}
-
 	if node, ok := this.cache[key]; ok {
 		// Key is present; remove it so we can replace it with a new node with updated value
 		this.remove(node)
@@ -164,6 +162,7 @@ func (this *LRUCache) Put(key int, value int) {
 		}
 	}
 
+	newNode := &DLLNode{key: key, val: value}
 	this.insert(newNode)
 	this.cache[key] = newNode
 }
