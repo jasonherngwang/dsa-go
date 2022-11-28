@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestInsert(t *testing.T) {
+func TestInsertHashTable(t *testing.T) {
 	t.Run("Insert into hash table", func(t *testing.T) {
 		hashTable := Init()
 		list := []string{
