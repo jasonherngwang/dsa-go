@@ -1,18 +1,18 @@
 package structures
 
 type Stack[T any] struct {
-	Data []T
+	Val []T
 }
 
 // Push on top of stack
 func (s *Stack[T]) Push(value T) {
-	s.Data = append(s.Data, value)
+	s.Val = append(s.Val, value)
 }
 
 // Pop from top of stack
 func (s *Stack[T]) Pop() T {
-	l := len(s.Data) - 1
-	toRemove := s.Data[l]
-	s.Data = s.Data[:l]
+	l := len(s.Val) - 1
+	toRemove := s.Val[l]
+	s.Val = s.Val[:l]
 	return toRemove
 }
