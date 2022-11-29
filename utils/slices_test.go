@@ -98,6 +98,26 @@ func TestRemoveAtIndex(t *testing.T) {
 
 		RemoveAtIndex[int](intSlice, 3)
 		expected := &[]int{1, 2, 3, 5, 6, 7, 8, 9, 10}
-		assert.Equal(t, intSlice, expected)
+		assert.Equal(t, expected, intSlice)
+	})
+}
+
+func TestReverse(t *testing.T) {
+	t.Run("integer slice", func(t *testing.T) {
+		intSlice := &[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+		actual := Reverse[int](*intSlice)
+		expected := []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+		assert.Equal(t, expected, actual)
+	})
+}
+
+func TestReverseInPlace(t *testing.T) {
+	t.Run("integer slice", func(t *testing.T) {
+		intSlice := &[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+
+		ReverseInPlace[int](intSlice)
+		expected := &[]int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
+		assert.Equal(t, expected, intSlice)
 	})
 }

@@ -1,6 +1,8 @@
 package utils
 
-import "reflect"
+import (
+	"reflect"
+)
 
 // Searching
 
@@ -110,4 +112,19 @@ func Filter[T any](slice []T, conditionFunc func(arg T) bool) []T {
 		}
 	}
 	return result
+}
+
+// Reverse
+func Reverse[T any](slice []T) []T {
+	reversedSlice := []T{}
+	for i := len(slice) - 1; i >= 0; i-- {
+		reversedSlice = append(reversedSlice, slice[i])
+	}
+	return reversedSlice
+}
+
+func ReverseInPlace[T any](slice *[]T) {
+	for i, j := 0, len(*slice)-1; i < j; i, j = i+1, j-1 {
+		(*slice)[i], (*slice)[j] = (*slice)[j], (*slice)[i]
+	}
 }
