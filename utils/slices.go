@@ -83,6 +83,27 @@ func InsertAtIndexNonmutatingCopy[T any](slice []T, index int, value T) []T {
 	return slice
 }
 
+// Appending, Concatenating
+// https://freshman.tech/snippets/go/concatenate-slices/
+// Pre-allocate a slice and copy each one in
+func ConcatMultipleSlices[T any](slices [][]T) []T {
+	var totalLen int
+
+	for _, s := range slices {
+		totalLen += len(s)
+	}
+
+	result := make([]T, totalLen)
+
+	var i int
+
+	for _, s := range slices {
+		i += copy(result[i:], s)
+	}
+
+	return result
+}
+
 // Removing/Deleting
 
 // Remove element at index, in-place. Similar to JS splice().

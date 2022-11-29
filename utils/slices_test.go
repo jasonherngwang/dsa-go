@@ -92,6 +92,20 @@ func TestIndexOfCondition(t *testing.T) {
 	})
 }
 
+func TestConcatMultipleSlices(t *testing.T) {
+	t.Run("concat integer slices", func(t *testing.T) {
+		intSlices := [][]int{
+			[]int{1, 2, 3},
+			[]int{4, 5, 6},
+			[]int{7, 8, 9, 10},
+		}
+
+		actual := ConcatMultipleSlices[int](intSlices)
+		expected := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+		assert.Equal(t, expected, actual)
+	})
+}
+
 func TestRemoveAtIndex(t *testing.T) {
 	t.Run("integer slice", func(t *testing.T) {
 		intSlice := &[]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
