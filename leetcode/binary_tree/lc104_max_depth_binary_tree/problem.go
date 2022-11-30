@@ -36,6 +36,9 @@ Algorithm
 ------------------------------------------
 Edge case: If root null return 0.
 
+Helper function: max(x, y) since Go doesn't have a built-in max function for
+integers
+
 Approach 1: Recursive
 Time: O(N) since we visit each node once
 Space: O(N) recursive calls on the call stack
@@ -43,10 +46,8 @@ Space: O(N) recursive calls on the call stack
 Steps
 Recursively traverse:
 - Base case: If node doesn't exist, return 0
-- If leaf node, return current depth + 1
-- If either child exists, make recursive call to obtain the depth of that
-subtree.
-  - Return the deeper of the two subtrees, plus 1.
+- Make recursive calls to find depths of the left and right subtrees.
+- Add 1 to account for the current node.
 
 Approach 2: Iterative (using queue)
 Time: O(N) since we visit each node once
@@ -74,28 +75,18 @@ type TreeNode struct {
 }
 
 // Approach 1: Recursive
-func traverse(root *TreeNode, depth int) int {
-	if root == nil {
-		return 0
+func max(x, y int) int {
+	if x > y {
+		return x
 	}
-
-	// Leaf
-	if root.Left == nil && root.Right == nil {
-		return depth + 1
-	}
-
-	// Has child
-	leftHeight := traverse(root.Left, depth)
-	rightHeight := traverse(root.Right, depth)
-
-	if leftHeight >= rightHeight {
-		return depth + leftHeight + 1
-	}
-	return depth + rightHeight + 1
+	return y
 }
 
 func maxDepth(root *TreeNode) int {
-	return traverse(root, 0)
+	if root == nil {
+		return 0
+	}
+	return 1 + max(maxDepth(root.Left), maxDepth(root.Right))
 }
 
 // Approach 2: Iterative
