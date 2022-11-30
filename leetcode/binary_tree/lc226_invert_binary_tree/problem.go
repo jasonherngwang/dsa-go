@@ -48,7 +48,7 @@ This function swaps the children. Stop when the node has no children.
 Time: O(N) since we visit each node once
 Space: O(N) recursive calls on the call stack
 
-Approach 1: Iterative
+Approach 2: Iterative
 - Starting from root, add both its children to a stack.
 - While the stack is not empty:
   - Pop a node off the stack.
