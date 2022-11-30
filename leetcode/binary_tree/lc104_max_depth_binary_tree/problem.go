@@ -37,6 +37,10 @@ Algorithm
 Edge case: If root null return 0.
 
 Approach 1: Recursive
+Time: O(N) since we visit each node once
+Space: O(N) recursive calls on the call stack
+
+Steps
 Recursively traverse:
 - Base case: If node doesn't exist, return 0
 - If leaf node, return current depth + 1
@@ -44,10 +48,12 @@ Recursively traverse:
 subtree.
   - Return the deeper of the two subtrees, plus 1.
 
-Time: O(N) since we visit each node once
-Space: O(N) recursive calls on the call stack
-
 Approach 2: Iterative (using queue)
+Time: O(N) since we visit each node once
+Space: O(N) since we have at most 1 level of the tree (N/2 nodes) in the queue
+at any time
+
+Steps
 - Initialize counter variable to 0.
 - Initialize queue (as slice) and enqueue root.
   - Queue front is index 0. Queue end is last index.
