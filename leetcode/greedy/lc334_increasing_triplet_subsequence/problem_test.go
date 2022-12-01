@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_sumSwap(t *testing.T) {
+func Test_increasingTriplet(t *testing.T) {
 	type input struct {
 		nums []int
 	}
