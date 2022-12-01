@@ -2,6 +2,7 @@ package utils
 
 import (
 	"reflect"
+	"sort"
 )
 
 // Searching
@@ -83,6 +84,12 @@ func InsertAtIndexNonmutatingCopy[T any](slice []T, index int, value T) []T {
 	return slice
 }
 
+func InsertSliceAtIndex[T any](slice []T, index int, sliceToInsert []T) []T {
+	secondHalf := append(sliceToInsert, slice[index:]...)
+	slice = append(slice[:index], secondHalf...)
+	return slice
+}
+
 // Appending, Concatenating
 // https://freshman.tech/snippets/go/concatenate-slices/
 // Pre-allocate a slice and copy each one in
@@ -135,6 +142,36 @@ func Filter[T any](slice []T, conditionFunc func(arg T) bool) []T {
 	return result
 }
 
+// Filter in-place
+func FilterInPlace[T any](slice *[]T, conditionFunc func(arg T) bool) {
+	result := (*slice)[:0]
+	for _, elem := range *slice {
+		if conditionFunc(elem) {
+			result = append(result, elem)
+		}
+	}
+	*slice = (*slice)[:len(result)]
+}
+
+// Unique (de-duplication)
+// Two pointers i and j. j stays at the first instance of any contiguous run of
+// duplicates, while i advances. This function copies 1 instance of each unique
+// value to the front of the array, and truncates it.
+
+// For integers.
+func Unique(slice []int) []int {
+	sort.Ints(slice)
+	j := 0
+	for i := 1; i < len(slice); i++ {
+		if slice[i] == slice[j] {
+			continue
+		}
+		j++
+		slice[j] = slice[i]
+	}
+	return slice[:j+1]
+}
+
 // Reverse
 func Reverse[T any](slice []T) []T {
 	reversedSlice := []T{}
@@ -150,4 +187,22 @@ func ReverseInPlace[T any](slice *[]T) {
 	for i, j := 0, len(*slice)-1; i < j; i, j = i+1, j-1 {
 		(*slice)[i], (*slice)[j] = (*slice)[j], (*slice)[i]
 	}
+}
+
+// Sliding Window
+// Example: [1, 2, 3, 4] with window size 2 produces nested array:
+// [ [1, 2], [2, 3], [3, 4] ]
+func SlidingWindow(windowSize int, slice []int) [][]int {
+	if len(slice) <= windowSize {
+		return [][]int{slice}
+	}
+
+	result := make([][]int, 0, len(slice)-windowSize+1)
+
+	// i, j are edges of window. Stop when j goes past end of slice.
+	for i, j := 0, windowSize; j <= len(slice); i, j = i+1, j+1 {
+		result = append(result, slice[i:j])
+	}
+
+	return result
 }
