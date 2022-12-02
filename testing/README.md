@@ -26,12 +26,10 @@ func Test_removeNthFromEnd(t *testing.T) {
 		n    int
 	}
 
-  type output = *ListNode
-
 	type testCase struct {
 		name string
 		args input
-		expected output
+		expected *ListNode
 	}
 
 	tests := []testCase{
