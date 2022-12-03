@@ -64,3 +64,40 @@ func Test_removeNthFromEnd(t *testing.T) {
 	}
 }
 ```
+
+## Using the TestKit
+
+```go
+package leetcode
+
+import (
+	"testing"
+  "github.com/jasonherngwang/dsa-go/testkit"
+)
+
+func Add(a int, b int) int {
+	return a + b
+}
+
+func Test_Add(t *testing.T) {
+	type input struct {
+		a int
+		b int
+	}
+
+	tests := []testkit.TestCase[input]{
+		{
+			Name:     "1 + 2",
+			Args:     input{1, 2},
+			Expected: 3,
+		},
+	}
+
+	Run_Tests(t, tests, func(test testkit.TestCase[input]) {
+		actual := Add(test.Args.a, test.Args.b)
+		testkit.Equal(t, actual, test.Expected)
+	})
+}
+```
+
+*Create a VSCode template snippet for easier usage*
