@@ -19,3 +19,17 @@ func TestTally(t *testing.T) {
 		assert.Equal(t, expected, actual)
 	})
 }
+
+func TestSliceToSet(t *testing.T) {
+	t.Run("convert slice of ints to set", func(t *testing.T) {
+		ints := []int{1, 2, 2, 3, 3, 3}
+
+		actual := SliceToSet[int](ints)
+		expected := map[int]bool{
+			1: true,
+			2: true,
+			3: true,
+		}
+		assert.Equal(t, expected, actual)
+	})
+}

@@ -14,3 +14,15 @@ func Tally[K comparable](slice []K) map[K]int {
 
 	return tally
 }
+
+// Convert slice to a set (unique values), implemented as a map
+// From CodeWars problem "Array Diff"
+func SliceToSet[T comparable](slice []T) map[T]bool {
+	set := make(map[T]bool)
+
+	for _, elem := range slice {
+		set[elem] = true
+	}
+
+	return set
+}
