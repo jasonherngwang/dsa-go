@@ -2,21 +2,21 @@ package structures
 
 import "fmt"
 
-// MaxHeap
-type MaxHeap struct {
+// MinHeap
+type MinHeap struct {
 	array []int
 }
 
 // Add element
-func (h *MaxHeap) Insert(key int) {
+func (h *MinHeap) Insert(key int) {
 	h.array = append(h.array, key)
-	h.maxHeapifyUp(len(h.array) - 1)
+	h.minHeapifyUp(len(h.array) - 1)
 }
 
-// Remove largest element
-func (h *MaxHeap) Extract() int {
+// Remove smallest element
+func (h *MinHeap) Extract() int {
 	// Remove root
-	max := h.array[0]
+	min := h.array[0]
 	lastIndex := len(h.array) - 1
 
 	if len(h.array) == 0 {
@@ -30,27 +30,27 @@ func (h *MaxHeap) Extract() int {
 	h.array = h.array[:lastIndex]
 
 	// Push new root down
-	h.maxHeapifyDown(0)
+	h.minHeapifyDown(0)
 
-	return max
+	return min
 }
 
 // Heapify down
-func (h *MaxHeap) maxHeapifyDown(index int) {
+func (h *MinHeap) minHeapifyDown(index int) {
 	lastIndex := len(h.array) - 1
 	l, r := left(index), right(index)
 	childToCompare := 0
 
 	for l <= lastIndex {
 		// In complete tree, nodes are pushed to left
-		if l == lastIndex || h.array[l] > h.array[r] {
+		if l == lastIndex || h.array[l] < h.array[r] {
 			childToCompare = l
 		} else {
 			childToCompare = r
 		}
 
 		// swap
-		if h.array[index] < h.array[childToCompare] {
+		if h.array[index] > h.array[childToCompare] {
 			h.swap(index, childToCompare)
 			index = childToCompare
 			l, r = left(index), right(index)
@@ -62,30 +62,29 @@ func (h *MaxHeap) maxHeapifyDown(index int) {
 }
 
 // Heapify up
-func (h *MaxHeap) maxHeapifyUp(index int) {
-	for h.array[parent(index)] < h.array[index] {
+func (h *MinHeap) minHeapifyUp(index int) {
+	for h.array[parent(index)] > h.array[index] {
 		h.swap(parent(index), index) // Swap larger node with smaller node
 		index = parent(index)        // Update pointer
 	}
 }
 
-// parent, left, min available from MinHeap
 // Index of parent node
-// func parent(index int) int {
-// 	return (index - 1) / 2
-// }
+func parent(index int) int {
+	return (index - 1) / 2
+}
 
 // Index of left child
-// func left(index int) int {
-// 	return index*2 + 1
-// }
+func left(index int) int {
+	return index*2 + 1
+}
 
 // Index of right child
-// func right(index int) int {
-// 	return index*2 + 2
-// }
+func right(index int) int {
+	return index*2 + 2
+}
 
 // Swap nodes
-func (h *MaxHeap) swap(index1, index2 int) {
+func (h *MinHeap) swap(index1, index2 int) {
 	h.array[index1], h.array[index2] = h.array[index2], h.array[index1]
 }
