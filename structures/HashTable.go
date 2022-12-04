@@ -101,23 +101,3 @@ func Init() *HashTable {
 	}
 	return hashTable
 }
-
-func main() {
-	hashTable := Init()
-	list := []string{
-		"Fido",
-		"Spot",
-		"Rover",
-		"Mittens",
-		"Paws",
-		"Claws",
-	}
-
-	for _, v := range list {
-		hashTable.Insert(v)
-	}
-
-	fmt.Println(hashTable.Exists("Spot"))
-	hashTable.Delete(("Spot"))
-	fmt.Println(hashTable.Exists("Spot"))
-}
