@@ -1,6 +1,8 @@
 /*
 Quick Sort
-""
+"Select a pivot (last elem). Prepare the rest of the array by moving smaller
+elems to the left and larger elems to the right. Swap pivot with "center" which
+could be near the edges. Recursively do this for both halves around pivot."
 - Divide and conquer + Recursion
 - Not stable due to swaps
 - In-place
