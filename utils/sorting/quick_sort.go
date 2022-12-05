@@ -6,7 +6,7 @@ Quick Sort
 - In-place
 - Time: O(N log N) on avg if list is usually divided in the center
   - Worst: O(N^2) if divided at the edges
-- Space: O(1)
+- Space: O(log N) for recursive calls on the call stack
 
 Pointers
 - Arbitrarily select pivot index, e.g. last index.
