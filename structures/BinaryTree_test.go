@@ -31,24 +31,3 @@ func TestInsertTree(t *testing.T) {
 		assert.Equal(t, expected, tree)
 	})
 }
-
-func TestSearchBST(t *testing.T) {
-	t.Run("Search for number", func(t *testing.T) {
-		bst := &BSTNode[int]{
-			Val: 5,
-			Left: &BSTNode[int]{
-				Val:   1,
-				Right: &BSTNode[int]{Val: 3},
-			},
-			Right: &BSTNode[int]{
-				Val:  10,
-				Left: &BSTNode[int]{Val: 7},
-			},
-		}
-
-		actual := true
-		expected := bst.Search(7)
-
-		assert.Equal(t, expected, actual)
-	})
-}

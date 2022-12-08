@@ -1,51 +1,10 @@
 package structures
 
-import "golang.org/x/exp/constraints"
-
-// TreeNode for int type only
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
 }
-
-// Binary Search Tree node for Ordered types
-type BSTNode[T constraints.Ordered] struct {
-	Val   T
-	Left  *BSTNode[T]
-	Right *BSTNode[T]
-}
-
-// Binary Search Tree (BST) Functions
-// ------------------------------------------
-
-// BST Search
-// Returns true if found, false if not
-func (n *BSTNode[T]) Search(key T) bool {
-	if n == nil {
-		return false
-	}
-
-	if key < n.Val {
-		return n.Left.Search(key)
-	} else if key > n.Val {
-		return n.Right.Search(key)
-	}
-
-	return true
-}
-
-// BST Find max value
-// TODO
-
-// BST Find min value
-// TODO
-
-// Validate if BST
-// TODO
-
-// Binary Tree Functions
-// ------------------------------------------
 
 // Insert
 func (n *TreeNode) Insert(val int) {
@@ -71,6 +30,8 @@ func (n *TreeNode) Insert(val int) {
 // Calculate height
 
 // Check existence
+
+// Traversal Functions
 
 // Pre-order traversal: Root, Left, Right (recursive)
 func preOrderTraverse(root *TreeNode, result *[]int) {
