@@ -8,6 +8,7 @@ LCA is the "deepest" ancestor node of two given nodes p and q.
 - For BST, left child < node, and right child > node.
   - If p and q are smaller than current node, discard right subtree and search
     left subtree only. Vice versa.
+  - If p is on one side, and q is on the other, current node is LCA.
   - If current node is equal to either p or q, then the other value must be its
     descendant. Return itself.
 
@@ -49,8 +50,10 @@ func main() {
 	var lcaOnBst func(bst *Node, p int, q int) int
 	lcaOnBst = func(bst *Node, p int, q int) int {
 		if p < bst.val && q < bst.val {
+			// Search left subtree
 			return lcaOnBst(bst.left, p, q)
 		} else if p > bst.val && q > bst.val {
+			// Search right subtree
 			return lcaOnBst(bst.right, p, q)
 		} else {
 			return bst.val

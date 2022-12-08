@@ -25,7 +25,7 @@ Steps
   - Return recursive DFS on both children.
 - Initiate DFS using -Inf and Inf as range bounds.
 
-Time: O(N) to visit all node
+Time: O(N) to visit all nodes
 Space: O(log N) for tree height, worst case O(N) for linked-list
 */
 
