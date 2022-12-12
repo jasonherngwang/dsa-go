@@ -29,22 +29,30 @@ func Test_searchRange(t *testing.T) {
 			},
 			expected: []int{3, 3},
 		},
-		// {
-		// 	name: "Duplicates",
-		// 	input: input{
-		// 		nums:   []int{5, 7, 7, 8, 8, 8, 10},
-		// 		target: 8,
-		// 	},
-		// 	expected: []int{3, 5},
-		// },
-		// {
-		// 	name: "Target not found",
-		// 	input: input{
-		// 		nums:   []int{5, 7, 7, 10},
-		// 		target: 8,
-		// 	},
-		// 	expected: []int{-1, -1},
-		// },
+		{
+			name: "Single elem",
+			input: input{
+				nums:   []int{5},
+				target: 5,
+			},
+			expected: []int{0, 0},
+		},
+		{
+			name: "Duplicates",
+			input: input{
+				nums:   []int{5, 7, 7, 8, 8, 8, 10},
+				target: 8,
+			},
+			expected: []int{3, 5},
+		},
+		{
+			name: "Target not found",
+			input: input{
+				nums:   []int{5, 7, 7, 10},
+				target: 8,
+			},
+			expected: []int{-1, -1},
+		},
 	}
 
 	for _, test := range tests {
