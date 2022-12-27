@@ -47,7 +47,7 @@ func main() {
 
 		var dfs func(startIndex int, path []string)
 		dfs = func(startIndex int, path []string) {
-			// If solution found
+			// If solution found (we can also take string length here)
 			if startIndex == n {
 				// Report solution
 				result = append(result, strings.Join(path, ""))
@@ -56,7 +56,7 @@ func main() {
 
 			// For candidate in list of candidates
 			for _, letter := range []string{"a", "b"} {
-				// Place candidate
+				// Place candidate (we can also concat to string here)
 				path = append(path, letter)
 				// Evaluate candidate at next level of tree
 				dfs(startIndex+1, path)

@@ -3,6 +3,7 @@ Given a string s, partition s such that every substring of the partition is a
 palindrome.
 
 Return all possible palindrome partitioning of s.
+- A partition cannot be empty.
 
 Input: aab
 
@@ -17,23 +18,18 @@ Output:
   ["a","a","b"]
 ]
 
-Given string aab, we evaluate partitions of all size:
-1: a    Remaining: ab  Add to result: a
-2: aa   Remaining:  b  Add to result: aa
-3: aab  NOT palindrome
+The children of our root node are the substrings from index 0 to last index:
+a, aa, and aab
 
-If any of these are palindromes, we recursively evaluate the REMAINING
-characters in the string to see if they can be partitioned into palindromes as
-well.
+To branch, set aside that first substring, and recurse on the remainder:
+Reserve a, Recurse on ab => Path is ['a']
+	Reserve a, Recurse on b => Path is ['a', 'a']
+		Reserve b, Recurse on '' => Success; leaf node. Return ['a', 'a', 'b']
 
-For "1: a" above, recurse on remaining "ab"
-1: a   Remaining: b  Add to result: a
-2: ab  NOT palindrome
+Reserve aa, Recurse on b => Path is ['aa']
+	Reserve b, Recurse on '' => Success; leaf node. Return ['aa', 'b']
 
-For "1: a" above, recurse on remaining "b"
-1: b   Remaining:  Add to result: b
-
-Nothing left to recurse over, so we have reached a leaf node. Add [a, a, b]
+Reserve aab, Recurse on '' => Fail. Prune.
 
 Start Index: First index of the next partition
 
@@ -87,6 +83,8 @@ func main() {
 				// DFS
 				path = append(path, prefix)
 				fmt.Println(path)
+				// We increment by `end`, not always by 1, since the prefix
+				// length changes
 				dfs(end, path)
 				path = path[:len(path)-1]
 

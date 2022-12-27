@@ -26,6 +26,10 @@ Steps
       - Push on path
       - Recursive DFS using the new path
       - Pop off path
+
+This is not like the previous one where are iterating over all digits each time.
+After we process a digit, we only consider the remaining, hence the use of an
+index to track our position in the phone number.
 */
 
 package main

@@ -44,7 +44,7 @@ func main() {
 			}
 
 			for _, child := range node.children {
-				// If not leaf node, continue recursing
+				// If not leaf node, add self and continue recursing
 				if len(node.children) > 0 {
 					pathSoFar = append(pathSoFar, strconv.Itoa(node.val)) // Push
 					dfs(child, pathSoFar, allPaths)
